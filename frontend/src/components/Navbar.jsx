@@ -11,35 +11,35 @@ const Navbar = () => {
   }
 
   return (
-    <nav className="bg-secondary shadow-lg">
+    <nav className="bg-primary border-b border-gray-800">
       <div className="container mx-auto px-4">
         <div className="flex justify-between items-center h-16">
-          <Link to="/" className="text-xl font-bold text-white">
+          <Link to="/" className="text-xl font-bold text-white tracking-widest uppercase">
             Video Platform
           </Link>
 
-          <div className="flex items-center space-x-4">
+          <div className="flex items-center space-x-6 text-sm uppercase tracking-wide">
             {isAuthenticated ? (
               <>
                 <Link to="/upload" className="btn btn-primary">
                   Upload Video
                 </Link>
-                <Link to="/dashboard" className="text-white hover:text-accent">
+                <Link to="/dashboard" className="text-gray-400 hover:text-white transition-colors">
                   Dashboard
                 </Link>
-                <Link to="/profile" className="text-white hover:text-accent">
+                <Link to="/profile" className="text-gray-400 hover:text-white transition-colors">
                   Profile
                 </Link>
                 <button
                   onClick={handleLogout}
-                  className="text-white hover:text-accent"
+                  className="text-gray-400 hover:text-white transition-colors uppercase tracking-wide"
                 >
                   Logout
                 </button>
               </>
             ) : (
               <>
-                <Link to="/login" className="text-white hover:text-accent">
+                <Link to="/login" className="text-gray-400 hover:text-white transition-colors">
                   Login
                 </Link>
                 <Link to="/register" className="btn btn-primary">

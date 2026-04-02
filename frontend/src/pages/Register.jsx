@@ -76,14 +76,14 @@ const Register = () => {
   }
 
   return (
-    <div className="max-w-md mx-auto">
-      <h2 className="text-2xl font-bold mb-6">Register</h2>
+    <div className="max-w-md mx-auto border border-gray-800 p-6 bg-secondary">
+      <h2 className="text-2xl font-bold mb-6 uppercase tracking-wide">Register</h2>
       {error && (
-        <div className="bg-red-500 text-white p-3 rounded-md mb-4">{error}</div>
+        <div className="border border-white text-white p-3 mb-4 text-sm uppercase tracking-wide">{error}</div>
       )}
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
-          <label htmlFor="fullname" className="block mb-2">
+          <label htmlFor="fullname" className="block mb-2 text-sm uppercase tracking-wide text-gray-300">
             Full Name
           </label>
           <input
@@ -97,7 +97,7 @@ const Register = () => {
           />
         </div>
         <div>
-          <label htmlFor="username" className="block mb-2">
+          <label htmlFor="username" className="block mb-2 text-sm uppercase tracking-wide text-gray-300">
             Username
           </label>
           <input
@@ -111,7 +111,7 @@ const Register = () => {
           />
         </div>
         <div>
-          <label htmlFor="email" className="block mb-2">
+          <label htmlFor="email" className="block mb-2 text-sm uppercase tracking-wide text-gray-300">
             Email
           </label>
           <input
@@ -125,7 +125,7 @@ const Register = () => {
           />
         </div>
         <div>
-          <label htmlFor="password" className="block mb-2">
+          <label htmlFor="password" className="block mb-2 text-sm uppercase tracking-wide text-gray-300">
             Password
           </label>
           <input
@@ -139,7 +139,7 @@ const Register = () => {
           />
         </div>
         <div>
-          <label htmlFor="confirmPassword" className="block mb-2">
+          <label htmlFor="confirmPassword" className="block mb-2 text-sm uppercase tracking-wide text-gray-300">
             Confirm Password
           </label>
           <input
@@ -153,7 +153,7 @@ const Register = () => {
           />
         </div>
         <div>
-          <label htmlFor="avatar" className="block mb-2">
+          <label htmlFor="avatar" className="block mb-2 text-sm uppercase tracking-wide text-gray-300">
             Avatar
           </label>
           <input
@@ -168,12 +168,12 @@ const Register = () => {
             <img
               src={previewAvatar}
               alt="Avatar preview"
-              className="mt-2 w-20 h-20 rounded-full object-cover"
+              className="mt-2 w-20 h-20 object-cover border border-gray-700"
             />
           )}
         </div>
         <div>
-          <label htmlFor="coverImage" className="block mb-2">
+          <label htmlFor="coverImage" className="block mb-2 text-sm uppercase tracking-wide text-gray-300">
             Cover Image (Optional)
           </label>
           <input
@@ -187,7 +187,7 @@ const Register = () => {
             <img
               src={previewCoverImage}
               alt="Cover image preview"
-              className="mt-2 w-full h-32 object-cover rounded-md"
+              className="mt-2 w-full h-32 object-cover border border-gray-700"
             />
           )}
         </div>
@@ -199,9 +199,9 @@ const Register = () => {
           {loading ? 'Registering...' : 'Register'}
         </button>
       </form>
-      <p className="mt-4 text-center">
+      <p className="mt-4 text-center text-sm uppercase tracking-wide text-gray-400">
         Already have an account?{' '}
-        <Link to="/login" className="text-accent hover:underline">
+        <Link to="/login" className="text-white hover:text-gray-300 transition-colors">
           Login
         </Link>
       </p>

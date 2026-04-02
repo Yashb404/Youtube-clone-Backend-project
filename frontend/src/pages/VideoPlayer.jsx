@@ -60,7 +60,7 @@ const VideoPlayer = () => {
 
   return (
     <div className="max-w-4xl mx-auto">
-      <div className="aspect-video bg-black mb-6">
+      <div className="aspect-video bg-black mb-6 border border-gray-800">
         <video
           src={currentVideo.videoUrl}
           controls
@@ -69,14 +69,14 @@ const VideoPlayer = () => {
         />
       </div>
 
-      <div className="mb-8">
-        <h1 className="text-2xl font-bold mb-2">{currentVideo.title}</h1>
+      <div className="mb-8 border border-gray-800 p-4 bg-secondary">
+        <h1 className="text-2xl font-bold mb-2 uppercase tracking-wide">{currentVideo.title}</h1>
         <div className="flex items-center justify-between text-gray-400 mb-4">
           <div className="flex items-center">
             <img
               src={currentVideo.owner.avatar}
               alt={currentVideo.owner.username}
-              className="w-10 h-10 rounded-full mr-3"
+              className="w-10 h-10 object-cover border border-gray-700 mr-3"
             />
             <span>{currentVideo.owner.username}</span>
           </div>
@@ -89,7 +89,7 @@ const VideoPlayer = () => {
       </div>
 
       <div className="border-t border-gray-700 pt-6">
-        <h2 className="text-xl font-bold mb-4">Comments</h2>
+        <h2 className="text-xl font-bold mb-4 uppercase tracking-wide">Comments</h2>
         {user && (
           <form onSubmit={handleCommentSubmit} className="mb-6">
             <textarea
@@ -105,11 +105,11 @@ const VideoPlayer = () => {
         )}
         <div className="space-y-4">
           {comments.map((comment) => (
-            <div key={comment._id} className="flex space-x-4">
+            <div key={comment._id} className="flex space-x-4 border border-gray-800 p-3 bg-secondary">
               <img
                 src={comment.owner.avatar}
                 alt={comment.owner.username}
-                className="w-10 h-10 rounded-full"
+                className="w-10 h-10 object-cover border border-gray-700"
               />
               <div>
                 <div className="flex items-center space-x-2">

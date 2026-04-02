@@ -62,14 +62,14 @@ const Login = () => {
   }
 
   return (
-    <div className="max-w-md mx-auto">
-      <h2 className="text-2xl font-bold mb-6">Login</h2>
+    <div className="max-w-md mx-auto border border-gray-800 p-6 bg-secondary">
+      <h2 className="text-2xl font-bold mb-6 uppercase tracking-wide">Login</h2>
       {error && (
-        <div className="bg-red-500 text-white p-3 rounded-md mb-4">{error}</div>
+        <div className="border border-white text-white p-3 mb-4 text-sm uppercase tracking-wide">{error}</div>
       )}
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
-          <label htmlFor="email" className="block mb-2">
+          <label htmlFor="email" className="block mb-2 text-sm uppercase tracking-wide text-gray-300">
             Email
           </label>
           <input
@@ -83,7 +83,7 @@ const Login = () => {
           />
         </div>
         <div>
-          <label htmlFor="password" className="block mb-2">
+          <label htmlFor="password" className="block mb-2 text-sm uppercase tracking-wide text-gray-300">
             Password
           </label>
           <input
@@ -104,9 +104,9 @@ const Login = () => {
           {loading ? 'Logging in...' : 'Login'}
         </button>
       </form>
-      <p className="mt-4 text-center">
+      <p className="mt-4 text-center text-sm uppercase tracking-wide text-gray-400">
         Don't have an account?{' '}
-        <Link to="/register" className="text-accent hover:underline">
+        <Link to="/register" className="text-white hover:text-gray-300 transition-colors">
           Register
         </Link>
       </p>

@@ -69,14 +69,12 @@ const Profile = () => {
   }
 
   return (
-    <div className="max-w-2xl mx-auto">
-      <h1 className="text-3xl font-bold mb-8">Profile Settings</h1>
+    <div className="max-w-2xl mx-auto border border-gray-800 p-6 bg-secondary">
+      <h1 className="text-3xl font-bold mb-8 uppercase tracking-wide">Profile Settings</h1>
 
       {message.text && (
         <div
-          className={`p-4 rounded-md mb-6 ${
-            message.type === 'success' ? 'bg-green-500' : 'bg-red-500'
-          } text-white`}
+          className="p-4 mb-6 border border-white text-white text-sm uppercase tracking-wide"
         >
           {message.text}
         </div>
@@ -87,10 +85,10 @@ const Profile = () => {
           <img
             src={user?.avatar || 'https://via.placeholder.com/150'}
             alt="Profile"
-            className="w-24 h-24 rounded-full object-cover"
+            className="w-24 h-24 object-cover border border-gray-700"
           />
           <div>
-            <label htmlFor="avatar" className="block mb-2">
+            <label htmlFor="avatar" className="block mb-2 text-sm uppercase tracking-wide text-gray-300">
               Change Avatar
             </label>
             <input
@@ -105,7 +103,7 @@ const Profile = () => {
         </div>
 
         <div>
-          <label htmlFor="username" className="block mb-2">
+          <label htmlFor="username" className="block mb-2 text-sm uppercase tracking-wide text-gray-300">
             Username
           </label>
           <input
@@ -120,7 +118,7 @@ const Profile = () => {
         </div>
 
         <div>
-          <label htmlFor="email" className="block mb-2">
+          <label htmlFor="email" className="block mb-2 text-sm uppercase tracking-wide text-gray-300">
             Email
           </label>
           <input
@@ -135,10 +133,10 @@ const Profile = () => {
         </div>
 
         <div className="border-t border-gray-700 pt-6">
-          <h2 className="text-xl font-bold mb-4">Change Password</h2>
+          <h2 className="text-xl font-bold mb-4 uppercase tracking-wide">Change Password</h2>
           <div className="space-y-4">
             <div>
-              <label htmlFor="currentPassword" className="block mb-2">
+              <label htmlFor="currentPassword" className="block mb-2 text-sm uppercase tracking-wide text-gray-300">
                 Current Password
               </label>
               <input
@@ -151,7 +149,7 @@ const Profile = () => {
               />
             </div>
             <div>
-              <label htmlFor="newPassword" className="block mb-2">
+              <label htmlFor="newPassword" className="block mb-2 text-sm uppercase tracking-wide text-gray-300">
                 New Password
               </label>
               <input
@@ -164,7 +162,7 @@ const Profile = () => {
               />
             </div>
             <div>
-              <label htmlFor="confirmPassword" className="block mb-2">
+              <label htmlFor="confirmPassword" className="block mb-2 text-sm uppercase tracking-wide text-gray-300">
                 Confirm New Password
               </label>
               <input

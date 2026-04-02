@@ -11,7 +11,7 @@ import PrivateRoute from './components/PrivateRoute'
 
 function App() {
   return (
-    <div className="min-h-screen bg-primary">
+    <div className="min-h-screen bg-primary font-mono">
       <Navbar />
       <main className="container mx-auto px-4 py-8">
         <Routes>

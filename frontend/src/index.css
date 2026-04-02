@@ -4,18 +4,18 @@
 
 @layer base {
   body {
-    @apply bg-primary text-white;
+    @apply bg-primary text-white selection:bg-white selection:text-black;
   }
 }
 
 @layer components {
   .btn {
-    @apply px-4 py-2 rounded-md font-medium transition-colors;
+    @apply px-4 py-2 border font-medium transition-colors duration-200 uppercase tracking-wide text-sm;
   }
   .btn-primary {
-    @apply bg-accent hover:bg-accent/90 text-white;
+    @apply bg-accent text-primary border-accent hover:bg-primary hover:text-accent;
   }
   .input {
-    @apply px-4 py-2 rounded-md bg-secondary border border-gray-700 focus:outline-none focus:border-accent;
+    @apply px-4 py-2 bg-primary border border-gray-600 text-white placeholder-gray-500 focus:outline-none focus:border-accent transition-colors rounded-none;
   }
 } 

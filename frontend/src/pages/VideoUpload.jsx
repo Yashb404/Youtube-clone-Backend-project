@@ -53,11 +53,11 @@ const VideoUpload = () => {
   }
 
   return (
-    <div className="max-w-2xl mx-auto">
-      <h2 className="text-2xl font-bold mb-6">Upload Video</h2>
+    <div className="max-w-2xl mx-auto border border-gray-800 p-6 bg-secondary">
+      <h2 className="text-2xl font-bold mb-6 uppercase tracking-wide">Upload Video</h2>
       <form onSubmit={handleSubmit} className="space-y-6">
         <div>
-          <label htmlFor="title" className="block mb-2">
+          <label htmlFor="title" className="block mb-2 text-sm uppercase tracking-wide text-gray-300">
             Title
           </label>
           <input
@@ -71,7 +71,7 @@ const VideoUpload = () => {
           />
         </div>
         <div>
-          <label htmlFor="description" className="block mb-2">
+          <label htmlFor="description" className="block mb-2 text-sm uppercase tracking-wide text-gray-300">
             Description
           </label>
           <textarea
@@ -84,7 +84,7 @@ const VideoUpload = () => {
           />
         </div>
         <div>
-          <label htmlFor="videoFile" className="block mb-2">
+          <label htmlFor="videoFile" className="block mb-2 text-sm uppercase tracking-wide text-gray-300">
             Video File
           </label>
           <input
@@ -98,7 +98,7 @@ const VideoUpload = () => {
           />
         </div>
         <div>
-          <label htmlFor="thumbnail" className="block mb-2">
+          <label htmlFor="thumbnail" className="block mb-2 text-sm uppercase tracking-wide text-gray-300">
             Thumbnail
           </label>
           <input
@@ -112,9 +112,9 @@ const VideoUpload = () => {
           />
         </div>
         {uploadProgress > 0 && (
-          <div className="w-full bg-gray-700 rounded-full h-2.5">
+          <div className="w-full bg-black border border-gray-700 h-2.5">
             <div
-              className="bg-accent h-2.5 rounded-full"
+              className="bg-white h-2.5"
               style={{ width: `${uploadProgress}%` }}
             ></div>
           </div>

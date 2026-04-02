@@ -1,7 +1,7 @@
-# Video Sharing Backend API
+# Video Sharing Platform API
 
-A full-featured backend REST API for a video sharing platform, built with **Node.js**, **Express**, and **MongoDB**.  
-It supports user authentication, video uploads, playlists, tweets, likes, subscriptions, and more.
+A REST API for a video sharing platform built with **Node.js**, **Express**, and **MongoDB**.  
+It covers authentication, media uploads, playlists, tweets, likes, subscriptions, and profile-driven user flows.
 
 ## Features
 
@@ -11,10 +11,18 @@ It supports user authentication, video uploads, playlists, tweets, likes, subscr
 - **Tweets**: Post, update, delete tweets, fetch user tweets.
 - **Likes**: Like/unlike videos, comments, tweets, fetch liked videos.
 - **Subscriptions**: Subscribe/unsubscribe to channels, fetch subscribers and subscribed channels.
-- **Cloudinary Integration**: For storing user avatars, cover images, video files, and thumbnails.
-- **Multer**: For handling file uploads.
-- **Robust Error Handling**: Consistent API error and response structure.
-- **Healthcheck Endpoint**: For monitoring API status.
+- **Cloudinary Integration**: Store avatars, cover images, thumbnails, and video files.
+- **Multer**: Handle multipart uploads for media-heavy endpoints.
+- **Consistent API Responses**: Centralized error and response helpers.
+- **Healthcheck Endpoint**: Monitor service status.
+
+## Coming Soon
+
+- Improved video discovery and search filters.
+- Creator analytics and performance insights.
+- Notification workflows for subscriptions and engagement.
+- Better moderation tools for comments and community content.
+- Expanded media management for creators.
 
 ## Tech Stack
 
@@ -39,6 +47,13 @@ cd Backend
 ### 2. Install dependencies
 
 ```bash
+npm install
+```
+
+If you want to work on the frontend as well, install its dependencies separately:
+
+```bash
+cd frontend
 npm install
 ```
 
@@ -67,6 +82,13 @@ npm run dev
 ```
 
 The server will run at [http://localhost:8000](http://localhost:8000).
+
+To run the frontend locally:
+
+```bash
+cd frontend
+npm run dev
+```
 
 ## API Endpoints
 
@@ -138,10 +160,16 @@ src/
   index.js
 public/
 .env
+frontend/
 ```
 
 ## Note
 Based on backend series by https://github.com/hiteshchoudhary
+
+## Status
+
+This project is actively evolving, with new creator-focused features being added over time.
+
 ## License
 
 [ISC](LICENSE)

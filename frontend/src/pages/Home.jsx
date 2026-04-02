@@ -32,7 +32,7 @@ const Home = () => {
 
   if (error) {
     return (
-      <div className="bg-red-500 text-white p-4 rounded-md">
+      <div className="border border-white text-white p-4 uppercase tracking-wide text-sm">
         {error}
       </div>
     )
@@ -40,15 +40,15 @@ const Home = () => {
 
   return (
     <div>
-      <h1 className="text-3xl font-bold mb-8">Featured Videos</h1>
+      <h1 className="text-3xl font-bold mb-8 uppercase tracking-wide">Featured Videos</h1>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {videos.map((video) => (
           <Link
             key={video._id}
             to={`/video/${video._id}`}
-            className="bg-secondary rounded-lg overflow-hidden hover:transform hover:scale-105 transition-transform"
+            className="bg-secondary border border-gray-800 overflow-hidden hover:border-white transition-colors duration-200"
           >
-            <div className="aspect-video bg-gray-800">
+            <div className="aspect-video bg-black border-b border-gray-800">
               <img
                 src={video.thumbnail}
                 alt={video.title}
@@ -56,7 +56,7 @@ const Home = () => {
               />
             </div>
             <div className="p-4">
-              <h3 className="text-lg font-semibold mb-2">{video.title}</h3>
+              <h3 className="text-lg font-semibold mb-2 uppercase tracking-wide">{video.title}</h3>
               <p className="text-gray-400 text-sm">
                 {video.views} views • {new Date(video.createdAt).toLocaleDateString()}
               </p>
@@ -64,7 +64,7 @@ const Home = () => {
                 <img
                   src={video.owner.avatar}
                   alt={video.owner.username}
-                  className="w-8 h-8 rounded-full mr-2"
+                  className="w-8 h-8 object-cover border border-gray-700 mr-2"
                 />
                 <span className="text-sm text-gray-400">{video.owner.username}</span>
               </div>
