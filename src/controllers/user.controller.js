@@ -5,11 +5,17 @@ import { ApiResponse } from "../utils/ApiResponse.js"
 import {uploadOnCloudinary} from "../utils/cloudinary.js"
 import jwt from "jsonwebtoken"
 import mongoose from "mongoose"
+import { createAuthCookieOptions } from "../utils/authCookies.js"
 
 
 const generateAccessAndRefreshToken = async(userId)=>{
     try{
         const user = await User.findById(userId)
+
+        if (!user) {
+            throw new ApiError(404, "User not found")
+        }
+
         const accessToken = user.generateAccessToken()
         const refreshToken = user.generateRefreshToken() 
         
@@ -19,6 +25,10 @@ const generateAccessAndRefreshToken = async(userId)=>{
         return {accessToken,refreshToken}
 
     }catch(error){
+        if (error instanceof ApiError) {
+            throw error
+        }
+
         throw new ApiError(500,"Something went wrong while generating tokens")
     }
 }
@@ -38,8 +48,12 @@ const registerUser = asyncHandler(async (req,res)=>{
         throw new ApiError(400,"All fields are required")
     }
 
+    const normalizedFullname = fullname.trim()
+    const normalizedUsername = username.trim().toLowerCase()
+    const normalizedEmail = email.trim().toLowerCase()
+
     const existedUser = await User.findOne({
-        $or:[{username},{email}]
+        $or:[{username: normalizedUsername},{email: normalizedEmail}]
     })
 
     if(existedUser){
@@ -66,12 +80,12 @@ const registerUser = asyncHandler(async (req,res)=>{
     }
 
     const user = await User.create({
-        fullname,
+        fullname: normalizedFullname,
         avatar: avatar.url,
-        coverImage: coverImage.url || "",
-        email,
+        coverImage: coverImage?.url || "",
+        email: normalizedEmail,
         password,
-        username: username.toLowerCase()
+        username: normalizedUsername
     })
 
     const createdUser = await User.findById(user._id).select(
@@ -90,14 +104,17 @@ const registerUser = asyncHandler(async (req,res)=>{
 
 
 const loginUser = asyncHandler(async(req,res)=>{
-    const {email,username,password} = req.body
+    const email = req.body?.email?.trim()?.toLowerCase()
+    const username = req.body?.username?.trim()?.toLowerCase()
+    const {password} = req.body
     
-    if(!username && !email){
-    throw new ApiError(400, "password and username is required");
-   }
+    if ((!username && !email) || !password) {
+        throw new ApiError(400, "Username or email and password are required")
+    }
 
+    const identifier = username || email
    const user = await User.findOne({
-    $or:[{username},{email}]
+    $or:[{username: identifier},{email: identifier}]
    })
 
    if(!user){
@@ -114,13 +131,11 @@ const loginUser = asyncHandler(async(req,res)=>{
 
     const loggedInUser = await User.findById(user._id).select("-password -refreshToken ")
 
-    const options = {
-        httpOnly:true,
-        secure:true
-    }
+    const accessCookieOptions = createAuthCookieOptions(process.env.ACCESS_TOKEN_EXPIRY)
+    const refreshCookieOptions = createAuthCookieOptions(process.env.REFRESH_TOKEN_EXPIRY)
 
     return res.status(200).cookie("accessToken",
-        accessToken,options).cookie("refreshToken",refreshToken,options)
+        accessToken,accessCookieOptions).cookie("refreshToken",refreshToken,refreshCookieOptions)
         .json(
             new ApiResponse(
                 200,{
@@ -133,7 +148,7 @@ const loginUser = asyncHandler(async(req,res)=>{
 
 })
 
-const logoutUser = await asyncHandler(async(req,res)=>{
+const logoutUser = asyncHandler(async(req,res)=>{
     await User.findByIdAndUpdate(
         req.user._id,
         {
@@ -146,13 +161,11 @@ const logoutUser = await asyncHandler(async(req,res)=>{
         }
     )
     
-    const options = {
-        httpOnly:true,
-        secure:true
-    }
+    const accessCookieOptions = createAuthCookieOptions(process.env.ACCESS_TOKEN_EXPIRY)
+    const refreshCookieOptions = createAuthCookieOptions(process.env.REFRESH_TOKEN_EXPIRY)
     return res.status(200)
-    .clearCookie("accessToken", options)
-    .clearCookie("refreshToken", options)
+    .clearCookie("accessToken", accessCookieOptions)
+    .clearCookie("refreshToken", refreshCookieOptions)
     .json(new ApiResponse(200, {},"User logged Out"))
 })
 
@@ -167,7 +180,7 @@ const refreshAccessToken = asyncHandler(async(req,res)=>{
    try {
     const decodedToken = jwt.verify(
      incomingRefreshToken,
-     process.nextTick.REFRESH_TOKEN_SECRET
+     process.env.REFRESH_TOKEN_SECRET
     )
  
     const user = await User.findById(decodedToken?._id)
@@ -180,17 +193,15 @@ const refreshAccessToken = asyncHandler(async(req,res)=>{
      throw new ApiError(401,"Expired refresh token")
     }
  
-    const options = {
-     httpOnly:true,
-     secure:true
-    }
+    const accessCookieOptions = createAuthCookieOptions(process.env.ACCESS_TOKEN_EXPIRY)
+    const refreshCookieOptions = createAuthCookieOptions(process.env.REFRESH_TOKEN_EXPIRY)
  
-    const {accessToken,newRefreshToken} = await generateAccessAndRefreshToken(user._id)
+    const {accessToken,refreshToken:newRefreshToken} = await generateAccessAndRefreshToken(user._id)
  
     return res
     .status(200)
-    .cookie("accessToken",accessToken,options)
-    .cookie("refreshToken",newRefreshToken,options)
+    .cookie("accessToken",accessToken,accessCookieOptions)
+    .cookie("refreshToken",newRefreshToken,refreshCookieOptions)
     .json(
      new ApiResponse(
          200,
@@ -207,7 +218,15 @@ const refreshAccessToken = asyncHandler(async(req,res)=>{
 const changeCurrentUserPassword = asyncHandler(async(req,res)=>{
     const {oldPassword,newPassword}=req.body
 
+    if(!oldPassword || !newPassword){
+        throw new ApiError(400,"Old password and new password are required")
+    }
+
     const user = await User.findById(req.user?._id)
+    if(!user){
+        throw new ApiError(404,"User not found")
+    }
+
     const isPasswordCorrect = await user.isPasswordCorrect(oldPassword)
 
     if(!isPasswordCorrect){
@@ -233,12 +252,15 @@ const updateAccountDetails = asyncHandler(async(req,res)=>{
         throw new ApiError(400,"All fields required")
     }
 
+    const normalizedFullname = fullname.trim()
+    const normalizedEmail = email.trim().toLowerCase()
+
     const user = await User.findByIdAndUpdate(
         req.user?._id,
         {
             $set:{
-                fullname:fullname,
-                email:email
+                fullname:normalizedFullname,
+                email:normalizedEmail
             }
         },
         {new:true}
@@ -259,7 +281,7 @@ const updateUserAvatar = asyncHandler(async(req,res)=>{
 
     const avatar = await uploadOnCloudinary(avatarLocalPath)
 
-    if (!avatar.url) {
+    if (!avatar?.url) {
         throw new ApiError(400,"Error while uploading on avatar")     
     }
 
@@ -289,7 +311,7 @@ const updateUserCoverImage = asyncHandler(async(req,res)=>{
 
     const coverImage = await uploadOnCloudinary(CoverLocalPath)
 
-    if (!coverImage.url) {
+    if (!coverImage?.url) {
         throw new ApiError(400,"Error while uploading on cover image")     
     }
 

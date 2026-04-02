@@ -93,6 +93,7 @@ const Register = () => {
             value={formData.fullname}
             onChange={handleChange}
             className="input w-full"
+            autoComplete="name"
             required
           />
         </div>
@@ -107,6 +108,7 @@ const Register = () => {
             value={formData.username}
             onChange={handleChange}
             className="input w-full"
+            autoComplete="username"
             required
           />
         </div>
@@ -121,6 +123,7 @@ const Register = () => {
             value={formData.email}
             onChange={handleChange}
             className="input w-full"
+            autoComplete="email"
             required
           />
         </div>
@@ -135,6 +138,7 @@ const Register = () => {
             value={formData.password}
             onChange={handleChange}
             className="input w-full"
+            autoComplete="new-password"
             required
           />
         </div>
@@ -149,6 +153,7 @@ const Register = () => {
             value={formData.confirmPassword}
             onChange={handleChange}
             className="input w-full"
+            autoComplete="new-password"
             required
           />
         </div>

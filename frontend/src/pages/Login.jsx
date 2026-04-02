@@ -79,6 +79,7 @@ const Login = () => {
             value={formData.email}
             onChange={handleChange}
             className="input w-full"
+            autoComplete="email"
             required
           />
         </div>
@@ -93,6 +94,7 @@ const Login = () => {
             value={formData.password}
             onChange={handleChange}
             className="input w-full"
+            autoComplete="current-password"
             required
           />
         </div>

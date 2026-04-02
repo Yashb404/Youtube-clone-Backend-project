@@ -147,6 +147,20 @@ npm run dev
 
 - `GET /api/v1/healthcheck` — Check API status
 
+## Authentication
+
+The backend uses JWT-based auth with httpOnly cookies and bearer-token fallback support. Access and refresh tokens are rotated server-side, and the auth middleware protects private routes.
+
+## MongoDB Migrations
+
+The repo includes a file-based migration workflow for MongoDB in `src/migrations`.
+
+- `npm run migrate:status` — list applied and pending migrations
+- `npm run migrate:up` — apply pending migrations
+- `npm run migrate:create -- add-user-indexes` — create a new migration stub
+
+Applied migration records are stored in MongoDB using the collection configured by `MIGRATIONS_COLLECTION_NAME`.
+
 ## Folder Structure
 
 ```

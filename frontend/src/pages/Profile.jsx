@@ -113,6 +113,7 @@ const Profile = () => {
             value={formData.username}
             onChange={handleChange}
             className="input w-full"
+            autoComplete="username"
             required
           />
         </div>
@@ -128,6 +129,7 @@ const Profile = () => {
             value={formData.email}
             onChange={handleChange}
             className="input w-full"
+            autoComplete="email"
             required
           />
         </div>
@@ -146,6 +148,7 @@ const Profile = () => {
                 value={formData.currentPassword}
                 onChange={handleChange}
                 className="input w-full"
+                autoComplete="current-password"
               />
             </div>
             <div>
@@ -159,6 +162,7 @@ const Profile = () => {
                 value={formData.newPassword}
                 onChange={handleChange}
                 className="input w-full"
+                autoComplete="new-password"
               />
             </div>
             <div>
@@ -172,6 +176,7 @@ const Profile = () => {
                 value={formData.confirmPassword}
                 onChange={handleChange}
                 className="input w-full"
+                autoComplete="new-password"
               />
             </div>
           </div>

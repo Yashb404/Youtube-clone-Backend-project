@@ -67,6 +67,7 @@ const VideoUpload = () => {
             value={formData.title}
             onChange={handleChange}
             className="input w-full"
+            autoComplete="off"
             required
           />
         </div>
@@ -80,6 +81,7 @@ const VideoUpload = () => {
             value={formData.description}
             onChange={handleChange}
             className="input w-full h-32"
+            autoComplete="off"
             required
           />
         </div>
